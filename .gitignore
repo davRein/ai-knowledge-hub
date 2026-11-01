@@ -1,0 +1,36 @@
+# Local configuration and credentials
+.env*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+
+# JavaScript / Next.js
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+dist/
+build/
+.coverage
+htmlcov/
+
+# Local artifacts
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+screenshots/
+uploads/
