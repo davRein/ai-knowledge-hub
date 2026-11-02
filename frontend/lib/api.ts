@@ -15,7 +15,7 @@ export async function checkHealth(signal: AbortSignal): Promise<void> {
     !("status" in data) ||
     data.status !== "ok" ||
     !("mode" in data) ||
-    data.mode !== "local-demo"
+    !["local-demo", "authenticated"].includes(String(data.mode))
   ) {
     throw new Error("Unexpected health response");
   }

@@ -17,10 +17,22 @@ def test_health_contract(client: TestClient) -> None:
     assert response.json() == {"status": "ok", "mode": "local-demo"}
 
 
-def test_openapi_contains_only_foundation_route(client: TestClient) -> None:
+def test_openapi_contains_only_current_milestone_routes(client: TestClient) -> None:
     response = client.get("/openapi.json")
     assert response.status_code == 200
-    assert set(response.json()["paths"]) == {"/health"}
+    assert set(response.json()["paths"]) == {
+        "/health",
+        "/api/documents",
+        "/api/documents/{document_id}",
+        "/api/chat",
+        "/api/auth/session",
+        "/api/auth/register",
+        "/api/auth/login",
+        "/api/auth/logout",
+        "/api/account",
+        "/api/account/password",
+        "/api/account/consent",
+    }
 
 
 def test_allowed_local_origin(client: TestClient) -> None:

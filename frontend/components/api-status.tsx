@@ -33,7 +33,7 @@ export function ApiStatus() {
       <p role="status" className={`status-${status}`}>
         <span aria-hidden="true" className="status-dot" />
         {status === "checking" && "Checking API…"}
-        {status === "online" && "API reachable · local demo"}
+        {status === "online" && "API reachable"}
         {status === "offline" && "API unavailable · start the backend"}
       </p>
       {status === "offline" && (
