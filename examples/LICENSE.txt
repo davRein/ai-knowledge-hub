@@ -1,0 +1,14 @@
+SPDX-License-Identifier: CC0-1.0
+
+The original synthetic content in atlas-handbook.json and atlas-handbook.pdf,
+including its sample questions, is dedicated under CC0 1.0 Universal.
+To the extent the project contributors hold copyright or related rights in
+this material, those rights are waived under CC0, with its fallback license.
+
+Legal terms: https://creativecommons.org/publicdomain/zero/1.0/legalcode.en
+Summary: https://creativecommons.org/publicdomain/zero/1.0/
+
+All names, project figures and policies are fictional. This material is
+provided without warranties. No company affiliation or endorsement is implied.
+This notice applies only to the two sample-content files named above; it does
+not change the license of application code, documentation or dependencies.

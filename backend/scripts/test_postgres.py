@@ -19,6 +19,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pg-bin", type=Path, required=True)
     parser.add_argument("--port", type=int, default=55432)
+    parser.add_argument(
+        "--portfolio",
+        action="store_true",
+        help="Capture portfolio via a real isolated API instead of running pytest",
+    )
     args = parser.parse_args()
     if os.name != "nt":
         parser.error("This helper targets Windows. Use a disposable test DB on other platforms.")
@@ -89,6 +94,10 @@ def main() -> int:
             "APP_MODE": "local-demo",
             "APP_ENV": "development",
         }
+        if args.portfolio:
+            from capture_portfolio import capture
+
+            return capture(env, root)
         result = subprocess.run(
             [sys.executable, "-m", "pytest", "-q"],
             env=env,

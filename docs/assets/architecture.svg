@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">AI Knowledge Hub: private document retrieval and answers</title>
+  <desc id="desc">A Next.js browser uses cookie-authenticated FastAPI routes. Ownership checks guard services and PostgreSQL pgvector. PDF extraction keeps page numbers. The fake provider is local; OpenAI is optional and requires consent. Citations are mapped from retrieved rows.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto-start-reverse"><path d="M0,0 L0,6 L9,3 z" fill="#b7a9ff"/></marker>
+  <style>text{font-family:Arial,sans-serif;fill:#edf1fa}.label{font-size:13px;fill:#a9b5cd}.title{font-size:23px;font-weight:bold}.body{font-size:16px}.small{font-size:14px;fill:#c2cbe0}.card{fill:#152035;stroke:#39465e;stroke-width:1.5}.line{fill:none;stroke:#b7a9ff;stroke-width:2;marker-end:url(#arrow)}</style></defs>
+  <rect width="1400" height="760" rx="20" fill="#0b1020"/>
+  <text x="44" y="52" class="label" style="letter-spacing:2px">AI KNOWLEDGE HUB / ARCHITECTURE</text>
+  <text x="44" y="96" style="font-size:34px;font-weight:bold">Private PDFs. Answers with evidence.</text>
+  <text x="44" y="128" class="small">Local services run separately. Database only in optional Docker Compose. No public deployment implied.</text>
+  <rect x="44" y="177" width="310" height="296" rx="14" class="card"/>
+  <text x="66" y="215" class="label">01 / BROWSER + FRONTEND</text><text x="66" y="253" class="title">Next.js + React</text>
+  <text x="66" y="289" class="body">Strict TypeScript · Tailwind</text><text x="66" y="326" class="small">Upload / documents / chat / sources</text>
+  <text x="66" y="356" class="small">HttpOnly session cookie + CSRF</text><text x="66" y="386" class="small">History in memory; cleared on logout</text>
+  <text x="66" y="433" class="body" fill="#b7a9ff">Filename + original page + excerpt</text>
+  <rect x="462" y="177" width="430" height="296" rx="14" class="card"/>
+  <text x="484" y="215" class="label">02 / PYTHON API</text><text x="484" y="253" class="title">FastAPI + Pydantic</text>
+  <text x="484" y="289" class="body">Session / owner / Origin / quota checks</text><text x="484" y="326" class="small">Ingest: validate PDF → extract pages → chunks</text>
+  <text x="484" y="356" class="small">Ask: filter owner → cosine top-k → evidence</text><text x="484" y="386" class="small">Citations mapped from retrieved database rows</text>
+  <text x="484" y="433" class="body">Thin routes → services → repositories</text>
+  <rect x="1000" y="177" width="356" height="296" rx="14" class="card"/>
+  <text x="1022" y="215" class="label">03 / PERSISTENCE</text><text x="1022" y="253" class="title">PostgreSQL + pgvector</text>
+  <text x="1022" y="289" class="body">SQLAlchemy + Alembic</text><text x="1022" y="326" class="small">Users / hashed sessions / rate limits</text>
+  <text x="1022" y="356" class="small">Documents / chunks / page references</text><text x="1022" y="386" class="small">1536-dimensional vectors + model profile</text>
+  <text x="1022" y="433" class="body">Owner filters before retrieval limit</text>
+  <path d="M354 295 H452" class="line"/><text x="368" y="276" class="label">HTTP API</text>
+  <path d="M892 295 H990" class="line" marker-start="url(#arrow)"/><text x="911" y="276" class="label">SQL</text>
+  <path d="M500 473 V507 H198 V483" class="line"/><text x="44" y="539" class="label">ANSWER + CITATIONS / explicit no-evidence response</text>
+  <rect x="462" y="570" width="430" height="133" rx="14" class="card"/>
+  <text x="484" y="605" class="title">Provider adapter</text><text x="484" y="636" class="small">Fake: deterministic local keyword matching</text>
+  <text x="484" y="667" class="small">OpenAI: optional embeddings + answer generation</text>
+  <path d="M677 473 V560" class="line"/>
+  <text x="918" y="608" class="small">External AI requires explicit user consent.</text><text x="918" y="638" class="small">Embedding calls receive extracted text.</text>
+  <text x="918" y="668" class="small">Answer calls receive question + retrieved excerpts.</text>
+  <text x="44" y="607" class="small">No original PDF storage</text><text x="44" y="637" class="small">No invented page references</text><text x="44" y="667" class="small">No public launch approval</text>
+</svg>

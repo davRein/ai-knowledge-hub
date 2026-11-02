@@ -1,0 +1,41 @@
+{
+  "title": "Atlas demo handbook",
+  "license": "CC0-1.0",
+  "notice": "Synthetic portfolio example. All people, policies and project details are fictional.",
+  "pages": [
+    {
+      "title": "Project Atlas",
+      "subtitle": "Budget and milestones",
+      "facts": [
+        { "label": "Project budget", "text": "The project budget for Project Atlas is 48,000 euros." },
+        { "label": "Project lead", "text": "Mira Sommer is the project lead for Project Atlas." },
+        { "label": "Project start", "text": "The project start date is 1 March 2027." },
+        { "label": "Pilot launch", "text": "The pilot launch date is 15 June 2027." }
+      ]
+    },
+    {
+      "title": "Team leave policy",
+      "subtitle": "Time off and requests",
+      "facts": [
+        { "label": "Annual leave", "text": "Full-time employees receive 30 days of annual leave per calendar year." },
+        { "label": "Leave requests", "text": "Submit leave requests at least 10 working days before the first day of leave." },
+        { "label": "Confirmation", "text": "The people team confirms leave requests within 3 working days." }
+      ]
+    },
+    {
+      "title": "Support and maintenance",
+      "subtitle": "Service hours and response targets",
+      "facts": [
+        { "label": "Support hours", "text": "Standard support is available Monday to Friday from 09:00 to 17:00." },
+        { "label": "Critical incidents", "text": "The response time for critical incidents is 2 hours." },
+        { "label": "Maintenance", "text": "Scheduled maintenance takes place on the first Wednesday of each month from 18:00 to 19:00." }
+      ]
+    }
+  ],
+  "questions": [
+    { "question": "What is the project budget for Project Atlas in euros?", "answer_contains": "48,000 euros", "page": 1 },
+    { "question": "How many days of annual leave do full-time employees receive per calendar year?", "answer_contains": "30 days", "page": 2 },
+    { "question": "What is the response time in hours for critical incidents?", "answer_contains": "2 hours", "page": 3 },
+    { "question": "What food should an axolotl eat?", "answer_contains": null, "page": null }
+  ]
+}

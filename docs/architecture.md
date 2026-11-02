@@ -1,14 +1,18 @@
-# Architecture — Milestone 5
+# Architecture — Milestone 6
+
+![Architecture: browser, authenticated API, owned retrieval, PostgreSQL and AI adapters](assets/architecture.svg)
 
 ## Current boundaries
 
 ```mermaid
 flowchart LR
     Next[Next.js: 127.0.0.1:3000] -->|HTML / JS / CSS| Browser[Local browser]
-    Browser -->|Health and document API| API[FastAPI: 127.0.0.1:8000]
-    API --> Services[Validation / PDF extraction / normalization / chunking]
-    Services --> Repository[Workspace-scoped SQLAlchemy repository]
-    Repository --> DB[Dedicated PostgreSQL project database]
+    Browser -->|Cookie session / CSRF / HTTP| API[FastAPI: session, owner and resource guards]
+    API --> Services[PDF extraction / page chunks / retrieval / answers]
+    Services --> Repository[Owner-scoped SQLAlchemy queries]
+    Repository <--> DB[PostgreSQL / pgvector / sessions]
+    Services --> Providers[Local fake adapter / optional OpenAI with consent]
+    API -->|Answer + server-mapped citations| Browser
     DB -. local option .-> Compose[Compose: localhost port 5432 or 5433]
     DB -. server option .-> Tunnel[SSH tunnel to existing Linux PostgreSQL]
 ```
@@ -25,7 +29,7 @@ The public API URL is frontend configuration, never a secret. Environment files 
 
 ## Backend
 
-`app/main.py` constructs the app and CORS policy, `api/` holds thin routes, `schemas/` defines response contracts, and `core/` validates configuration. `APP_MODE` accepts only `local-demo`. FastAPI generates `/docs`, `/redoc`, and `/openapi.json`. `/health` reports process liveness without checking dependencies.
+`app/main.py` constructs the app and CORS policy, `api/` holds thin routes, `schemas/` defines response contracts, and `core/` validates configuration. `APP_MODE` accepts `local-demo` and `authenticated`. FastAPI generates `/docs`, `/redoc`, and `/openapi.json` in development only. `/health` reports process liveness without checking dependencies.
 
 Routes use typed schemas and dependencies, delegate ingestion to `services/`, and access data through `repositories/`. SQLAlchemy models live in `models/`, sessions in `db/`, and Alembic manages explicit schema upgrades. Database exceptions become a generic 503 without logging SQL parameters or document content. No schema is created automatically on app startup.
 
@@ -89,4 +93,10 @@ The shell, library and chat/source layout are responsive. Browser automation use
 
 Limits use atomic PostgreSQL counters and per-user locks for quota serialization. Sessions, rate limits and storage ownership are shared across API workers without another service. Registration is a development option and must be closed in production. Quotas and consent are enforced on the API even when bypassing the UI. Authenticated OpenAI reindex requires an explicit account and its stored consent.
 
-See [security and deployment review](security.md) for cookie topology, request logging, cleanup, backup/deletion obligations, production settings and remaining launch gates. M5 does not deploy services or implement M6. See [ROADMAP.md](../ROADMAP.md) for authoritative scope.
+## M6 reproducible portfolio boundary
+
+`examples/` holds a small original CC0 handbook plus text/question manifest. `app.seed_demo` uses the ordinary scoped repository and document service for an explicitly selected account, never startup code. It rejects production/external-provider modes and incompatible existing sample names. Its preview is read-only and repeated sequential import returns the matching document ID. The sample's licensing scope is separate from application code.
+
+The portfolio capture harness creates a disposable PostgreSQL/pgvector cluster, verifies its data directory, applies real migrations there and runs a temporary authenticated/fake FastAPI service. A separate production Next.js process is exercised through Playwright with real registrations, upload, retrieval, three page-mapped answers, no-evidence behavior and a second account's isolation checks. Browser annotations identify real regions; they do not replace answer/document content. All accounts/data in published screenshot assets are synthetic. The personal development database and `.env` remain separate. Fixture-based UI tests continue independently.
+
+See [the demo guide](demo.md), [M6 verification](verification-m6.md), and [security/deployment review](security.md) for reproduction and remaining launch gates. No deployment occurs in M6. See [ROADMAP.md](../ROADMAP.md) for authoritative scope.

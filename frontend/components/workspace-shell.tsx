@@ -84,7 +84,7 @@ function Shell({ children }: { children: ReactNode }) {
             <br />
             The evidence behind them.
           </p>
-          <p className="muted small">Milestone 5 / 6</p>
+          <p className="muted small">Milestone 6 / 6</p>
           <a
             className="text-button"
             href={`${apiUrl}/docs`}
@@ -147,7 +147,7 @@ function Shell({ children }: { children: ReactNode }) {
           {children}
           <footer>
             <span>
-              AI Knowledge Hub · M5 · <Link href="/privacy">Privacy</Link>
+              AI Knowledge Hub · M6 · <Link href="/privacy">Privacy</Link>
             </span>
             <details>
               <summary>Service connection</summary>

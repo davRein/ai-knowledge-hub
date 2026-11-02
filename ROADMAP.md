@@ -1,5 +1,7 @@
 # AI Knowledge Hub — milestones
 
+Current status: M1–M6 are implemented locally with checks recorded under `docs/verification*.md`. M6 provides synthetic demo assets and presentation material; it does not authorize a public launch. Operational launch prerequisites remain in `docs/security.md`. There is no defined M7. Commits, publication and deployment still require explicit user authorization.
+
 ## M1 — Repository and foundation
 - Inspect repository state; create Next.js TypeScript frontend and FastAPI backend; create PostgreSQL + pgvector Docker Compose.
 - Add `.gitignore`, `.env.example`, README with local startup commands, API `/health` and a dashboard shell.

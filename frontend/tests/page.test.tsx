@@ -25,7 +25,7 @@ it("clearly labels the local workspace and implemented milestone", async () => {
     </WorkspaceShell>,
   );
   expect(await screen.findByText(/not production-secure/)).toBeVisible();
-  expect(screen.getByText("Milestone 5 / 6")).toBeVisible();
+  expect(screen.getByText("Milestone 6 / 6")).toBeVisible();
   expect(screen.getByRole("link", { name: "Chat" })).toHaveAttribute(
     "aria-current",
     "page",

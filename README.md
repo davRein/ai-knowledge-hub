@@ -1,6 +1,21 @@
 # AI Knowledge Hub
 
-A portfolio project for document-grounded answers with traceable sources. **M1–M3 provide the backend foundation, M4 the full workspace, and M5 private accounts and deployment preparation.** This project is independent of ForgeFlow. The original handoff instructions remain in [AGENTS.md](AGENTS.md), [ROADMAP.md](ROADMAP.md), and [CODEX_START.md](CODEX_START.md).
+A multi-user document question-answering portfolio project built with **Next.js, TypeScript, Python, FastAPI and PostgreSQL/pgvector**. Upload PDFs, select a private search scope, and inspect answers beside the original filename, page number and extracted passage. **M1–M6 cover the working local application and its portfolio materials.** Public deployment still requires the [launch review](docs/security.md).
+
+![Synthetic portfolio demo: document selection, answer and source passage](docs/assets/chat-desktop.png)
+
+*Actual UI/API/PostgreSQL capture with synthetic CC0 data and the explicitly labelled deterministic fake provider. No live OpenAI quality claim.*
+
+| Layer | Technology / design |
+| --- | --- |
+| UI | Next.js App Router, React, strict TypeScript, Tailwind CSS; responsive chat, documents and citations |
+| API | Python 3.12+, FastAPI, Pydantic; thin routes, services and typed data access |
+| Retrieval | pypdf page extraction, overlapping chunks, 1536-dimensional embeddings, exact pgvector cosine search |
+| Identity | Argon2id passwords, revocable HttpOnly cookie sessions, CSRF and server-side owner filtering |
+| Quality | pytest, Vitest, Playwright; source mapping, unsupported questions, deletion and tenant isolation |
+| Demo | Bundled CC0 PDF, repeatable import, annotated desktop/mobile screenshots and a two-minute walkthrough |
+
+Start with [local setup](#prerequisites), the [sample and questions](examples/README.md), [demo walkthrough](docs/demo.md), [architecture](docs/architecture.md), or [current verification](docs/verification-m6.md). The fake provider runs without credentials; OpenAI is an optional adapter requiring configuration and user consent. This project is independent of ForgeFlow. The original handoff instructions remain in [AGENTS.md](AGENTS.md), [ROADMAP.md](ROADMAP.md), and [CODEX_START.md](CODEX_START.md).
 
 ## Implemented in M1
 
@@ -48,6 +63,13 @@ A portfolio project for document-grounded answers with traceable sources. **M1�
 - Public `/privacy` notice and a separate opt-in before authenticated users send text/questions to OpenAI.
 - Operator commands, migration preserving legacy documents, security/deployment review and automated authentication/isolation tests. See [M5 verification](docs/verification-m5.md) and [security and deployment](docs/security.md).
 
+## Implemented in M6
+
+- Original, visibly synthetic [three-page CC0 PDF](examples/atlas-handbook.pdf), its editable text/question source and scoped license notice.
+- Explicit `app.seed_demo` preview/import for a selected existing account (or the local-demo workspace), with normal quotas/indexing, duplicate detection and conflict protection. Development/fake mode only; no automatic account creation or startup seed.
+- Real-stack, synthetic-data [desktop/mobile screenshots and a two-minute demo script](docs/demo.md), plus a repeatable capture helper using a disposable PostgreSQL cluster.
+- [Architecture overview](docs/assets/architecture.svg), technical README summary and [verification record](docs/verification-m6.md).
+
 No key is needed for the fake AI provider. Original PDFs are discarded after processing; text and vectors persist until deletion. OCR, streaming, server-side chat persistence, automated email recovery, email verification and MFA are not implemented. The Linux server remains unchanged. No deployment has been performed; the launch review still has operator prerequisites.
 
 **Development data incident:** an initial M3 integration run resolved the public Alembic version table through the test search path. Its downgrade test removed the project document tables, including one previously stored document. The schema has been recreated, but that document's content was not recovered and its original PDF must be re-uploaded. Tests now use a schema-qualified version table, explicit ORM schema translation, resolution checks and public-table identity checks. See [M3 verification](docs/verification-m3.md) for the incident and final test results. Future tests should use a dedicated test database; keep backups of persistent development data.
@@ -64,6 +86,9 @@ infra/init/            First-start pgvector extension SQL
 docs/architecture.md   Boundaries, current data flow, security and future layers
 docs/verification.md   Observed checks and missing prerequisites
 ROADMAP.md             Authoritative milestone scope
+examples/              Original CC0 sample PDF, text source, expected questions and scoped license
+docs/demo.md           Two-minute script, annotated screenshots and reproduction instructions
+docs/assets/           Publishable synthetic screenshots and architecture diagram
 ```
 
 ## Prerequisites
@@ -257,7 +282,7 @@ npm run build
 
 Apply formatting with `npm run format`. Use `npm run start` to serve a production build locally after building.
 
-M4/M5 browser tests, from `frontend/`, require an installed Microsoft Edge browser (the configured Playwright channel). Build first, then:
+M4–M6 browser tests, from `frontend/`, require an installed Microsoft Edge browser (the configured Playwright channel). Build first, then:
 
 ```powershell
 npm.cmd run build
@@ -309,8 +334,8 @@ The default backend tests migrate temporary SQLite databases. To repeat against 
 
 ## Screenshots
 
-Start frontend and backend, open the dashboard, and capture desktop (1440×1000) and mobile (390×844) views using browser developer tools. Check horizontal overflow, keyboard focus, readable local-demo labels, and the actual API health state. Save optional local captures under ignored `screenshots/`. No screenshots or example documents are bundled in M1.
+Verified synthetic-data screenshots are bundled under `docs/assets/` and annotated in [the demo guide](docs/demo.md). The guide includes the command to regenerate them against a real, separate PostgreSQL/API instance. Ordinary fixture browser tests still save ignored local artifacts under `frontend/test-results/`. Save any personal/local captures under ignored `screenshots/`; never substitute private account or document screenshots into the public README.
 
 ## Next step
 
-Review M5 locally with two separate browser profiles/accounts and verify that each sees only its own PDFs. The next roadmap milestone is **M6: portfolio polish (optional)**, only when explicitly requested. Real OpenAI calls and answer quality remain unverified; the Linux server can be connected separately. Public deployment remains blocked on the operator items in the [launch review](docs/security.md).
+All six roadmap milestones have local implementations and recorded checks. Try the [two-minute walkthrough](docs/demo.md) with the [CC0 sample](examples/README.md), then review the materials before committing or publishing. No M7 is defined. Real OpenAI network behavior/answer quality remains unverified; the Linux server can be connected separately. Public deployment remains blocked on the operator items in the [launch review](docs/security.md).

@@ -1,6 +1,6 @@
 # Milestone 1 verification
 
-Historical M1 results are below. See [M2 verification](verification-m2.md), [M3 verification](verification-m3.md) including its data-loss incident report, [M4 verification](verification-m4.md), and current [M5 verification](verification-m5.md).
+Historical M1 results are below. See [M2 verification](verification-m2.md), [M3 verification](verification-m3.md) including its data-loss incident report, [M4 verification](verification-m4.md), [M5 verification](verification-m5.md), and current [M6 verification](verification-m6.md).
 
 The existing staged handoff and IDE files were preserved. No commit, deployment, or publication was performed.
 
